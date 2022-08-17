@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   get '/character/:id', to: 'character#show'
   post '/character', to: 'character#create'
   patch '/character/:id', to: 'character#update'
-  delete "/character/:id" => "character#destroy"
-  get "/characters", to: 'character#search'
+  delete '/character/:id', to: 'character#destroy'
+  get '/characters', to: 'character#search'
 
+  get '/movies', to: 'pelicula#index'
+  get '/movie/:id', to: 'pelicula#show'
+  post '/movie', to: 'pelicula#create'
+  patch '/movie/:id', to: 'pelicula#update'
+  delete '/movie/:id', to: 'pelicula#destroy'
 end
