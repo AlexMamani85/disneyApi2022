@@ -10,6 +10,33 @@ class PeliculaController < ApplicationController
       methods: [:character]
   end
 
+  def search
+    peliculas = ""
+    # TODO: Probar name con espacios
+    if params[:name]
+      peliculas = Pelicula.where(name: params[:name])
+    end
+    if params[:genre]
+      peliculas = Pelicula.where(genero_id: params[:genre])
+    end
+    if params[:order] == 'ASC'
+      peliculas = peliculas.order('created_at ASC')
+    end
+    if params[:order] == 'DESC'
+      peliculas = peliculas.order('created_at DESC')
+    end
+
+    rpta = []
+    (0..peliculas.length - 1).each do |i|
+      rpta << { id: peliculas[i].id,
+                imagen: peliculas[i].imagen,
+                titulo: peliculas[i].titulo,
+                calificacion: peliculas[i].calificacion,
+                genero_id: peliculas[i].genero_id }
+    end
+    render json: rpta
+  end
+
   def create
     pelicula = Pelicula.new(pelicula_params)
     if pelicula.save
